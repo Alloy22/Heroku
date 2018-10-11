@@ -4,7 +4,7 @@
   "description": "What is Subject?",
   "main": "bot.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node test.js"
   },
   "author": "Alloy&ZL",
   "license": "ISC",
