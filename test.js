@@ -25,7 +25,10 @@ fs.readdir("./cmds/", (err, files) => {
 });
 
 bot.on("ready", async () => {
-
+    setInterval(()=>{
+        message.channel.send("hi");
+        console.log("hi")
+    },900000)
 });
 
 
