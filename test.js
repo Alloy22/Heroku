@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 const fs = require("fs");
 
 const prefix = botSettings.prefix;
-const token = process.env.token;
+const token = "B6J-5xuidYqMvY7nK8S" + "ETGBMCXqjmEeo4XR9" //process.env.token;
 const bot = new Discord.Client({});
 bot.commands = new Discord.Collection();
 
@@ -49,5 +49,5 @@ bot.on("message", async message => {
     if (cmd) cmd.run(bot, message, args);
 })
 
-bot.login("B6J-5xuidYqMvY7nK8S" + "ETGBMCXqjmEeo4XR9");
+bot.login(token);
 
