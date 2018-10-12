@@ -1,12 +1,11 @@
-const botSettings = require("./botsettings.json");
 const Discord = require("discord.js");
 const fs = require("fs");
 
-const prefix = botSettings.prefix;
+const prefix = "!";
 const token = process.env.token;
 const bot = new Discord.Client({});
 bot.commands = new Discord.Collection();
-
+//=============================================================================
 fs.readdir("./cmds/", (err, files) => {
     if (err) console.error(err);
 
@@ -25,16 +24,6 @@ fs.readdir("./cmds/", (err, files) => {
     });
 });
 
-bot.on("ready", async () => {
-
-    bot.channels.find("id", "475990509505085442").send("Fire!");
-    setInterval(()=>{
-        bot.channels.find("id", "475990509505085442").send("hi");
-        console.log("hi")
-    },900000)
-});
-
-
 bot.on("message", async message => {
     if (message.author.bot) return;
     if (message.channel.type === "dm") return;
@@ -50,4 +39,17 @@ bot.on("message", async message => {
 })
 
 bot.login(token);
+//=============================================================================
+bot.on("ready", async () => {
+
+    bot.channels.find("id", "475990509505085442").send("Fire!");
+    setInterval(()=>{
+        bot.channels.find("id", "475990509505085442").send("hi");
+        console.log("hi")
+    },900000)
+    
+});
+
+
+
 
