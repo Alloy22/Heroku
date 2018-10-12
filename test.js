@@ -49,5 +49,5 @@ bot.on("message", async message => {
     if (cmd) cmd.run(bot, message, args);
 })
 
-bot.login(token);
+bot.login("Siu7kpFacDuGW_SoZrq7e9OxHWppTfNx");
 
