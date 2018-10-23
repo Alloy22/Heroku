@@ -1,5 +1,35 @@
 {
-    "Mac": {
-        "digit": "4"
+    "MacDonald": {
+        "count": "1"
+    },
+    "KFC": {
+        "count": "4"
+    },
+    "MixedRice": {
+        "count": "15"
+    },
+    "LongJohnSilver": {
+        "count": "4"
+    },
+    "ChickenRice": {
+        "count": "2"
+    },
+    "FoodCourt": {
+        "count": "8"
+    },
+    "MosBurger": {
+        "count": "1"
+    },
+    "ToriQ": {
+        "count": "4"
+    },
+    "LeeWeeBros": {
+        "count": "5"
+    },
+    "RedHillFishBall": {
+        "count": "5"
+    },
+    "KopiRoti": {
+        "count": "3"
     }
 }

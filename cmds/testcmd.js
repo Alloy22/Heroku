@@ -1,8 +1,11 @@
 module.exports.run = async (bot, message, args) => {
-    var date = new Date();
-    console.log(date.getHours());
-    console.log(date.getMinutes());
-    console.log(date);
+    var str = "Shitty List for now\n";
+
+    for(let key in bot.food){
+        str += `${key}: ${bot.food[key].count}\n`
+    }
+
+    bot.channels.find("id", "504311345202724877").send(str);
 }
 
 module.exports.help = {

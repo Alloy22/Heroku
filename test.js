@@ -2,10 +2,11 @@ const Discord = require("discord.js");
 const fs = require("fs");
 
 const prefix = "!";
-const token = process.env.token ;
+const token = process.env.token;
 const bot = new Discord.Client({});
 bot.commands = new Discord.Collection();
 bot.food = new require("./food.json");
+let lastDay = new Date("Feburary 8, 2019 09:30:00");
 //=============================================================================
 fs.readdir("./cmds/", (err, files) => {
     if (err) console.error(err);
@@ -43,16 +44,56 @@ bot.login(token);
 //=============================================================================
 bot.on("ready", async () => {
 
-    bot.channels.find("id", "475990509505085442").send("Restarted!");
+    try {
+        let link = await bot.generateInvite(["ADMINISTRATOR"]);
+        console.log(link);
+    } catch (e) {
+        console.log(e.stack);
+    }
+
     setInterval(()=>{
         
         var date = new Date();
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
 
+        if(hours == 3 && minutes == 45){
+            sendText();
+        }
 
     },60000)
     
 });
 
+function sendText(){
+    
+    //Generate Food
+    let geneFood = getFood();
+    //Generate Days Left
+    let now  = new Date();
+    let geneLeft = Math.floor((lastDay - now)/86400000);
+    //Combine String
+    let str = `Today's Food: ${geneFood}\nDays Left: ${geneLeft}`
+
+    bot.channels.find("id", "504311164851978243").send(str); //475990509505085442
+
+}
+
+function getFood(){
+
+    let arrayFood = [];
+
+    for(let key in bot.food){
+        var count = bot.food[key].count;
+        for(let i = 0; i < count; i++){
+            arrayFood.push(key)
+        }  
+    }   
+
+    let chosen = arrayFood[Math.floor(Math.random()*arrayFood.length)];
+    return chosen
+
+}
 
 
 
