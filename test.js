@@ -2,9 +2,10 @@ const Discord = require("discord.js");
 const fs = require("fs");
 
 const prefix = "!";
-const token = process.env.token;
+const token = process.env.token ;
 const bot = new Discord.Client({});
 bot.commands = new Discord.Collection();
+bot.food = new require("./food.json");
 //=============================================================================
 fs.readdir("./cmds/", (err, files) => {
     if (err) console.error(err);
@@ -42,11 +43,13 @@ bot.login(token);
 //=============================================================================
 bot.on("ready", async () => {
 
-    bot.channels.find("id", "475990509505085442").send("Fire!");
+    bot.channels.find("id", "475990509505085442").send("Restarted!");
     setInterval(()=>{
-        bot.channels.find("id", "475990509505085442").send("hi");
-        console.log("hi")
-    },900000)
+        
+        var date = new Date();
+
+
+    },60000)
     
 });
 
