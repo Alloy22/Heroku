@@ -1,11 +1,13 @@
 const fs = module.require("fs");
 
 module.exports.run = async (bot, message, args) => {
-
+    
+    let food = "";
+    
     switch(args[0]){
         case "add":
             message.delete();
-            let food  = args[1];
+            food  = args[1];
             let count = args[2];
 
             bot.food[food] = {
@@ -14,7 +16,7 @@ module.exports.run = async (bot, message, args) => {
             break;
         case "delete":
             message.delete();
-            let food = args[1];
+            food = args[1];
             
             delete bot.food[food];
             break;
