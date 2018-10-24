@@ -73,7 +73,7 @@ function sendText(){
     let now  = new Date();
     let geneLeft = Math.floor((lastDay - now)/86400000);
     //Combine String
-    let str = `Today's Food: ${geneFood}\nDays Left: ${geneLeft}`
+    let str = `Today's Food: ${geneFood}\nDays Left: ${geneLeft}\n<@217655330014756865><@220929365649653761>`
 
     bot.channels.find("id", "504311164851978243").send(str); //475990509505085442
 
