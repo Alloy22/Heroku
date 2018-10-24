@@ -20,8 +20,6 @@ module.exports.run = async (bot, message, args) => {
             
             delete bot.food[food];
             break;
-        default
-            console.log("err");
         }
         await fs.writeFile("./food.json", JSON.stringify(bot.food, null, 4), err => {
                 if (err) throw err;
