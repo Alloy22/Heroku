@@ -11,13 +11,20 @@ module.exports.run = async (bot, message, args) => {
             bot.food[food] = {
                 count: count
             }
-            await fs.writeFile("./food.json", JSON.stringify(bot.food, null, 4), err => {
-                if (err) throw err;
-            });
-            refreshList(bot);
-            break;     
+            break;
+        case "delete":
+            message.delete();
+            let food = args[1];
+            
+            delete bot.food[food];
+            break;
+        default
+            console.log("err");
         }
-        
+        await fs.writeFile("./food.json", JSON.stringify(bot.food, null, 4), err => {
+                if (err) throw err;
+        });
+        refreshList(bot);
     
         
         
