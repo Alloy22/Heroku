@@ -3,7 +3,7 @@ const fs = require("fs");
 
 const mongoose = require("mongoose");
 mongoose.connect(process.env.mongooseConnection);
-const Foods = require("../models/food.js");
+const Foods = require("./models/food.js");
 
 const prefix = "!";
 const token = process.env.token;
