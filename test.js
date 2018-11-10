@@ -69,39 +69,30 @@ bot.on("ready", async () => {
     
 });
 
-function sendText(){
-    
-    //Generate Food
-    let geneFood = getFood();
-    //Generate Days Left
-    let now  = new Date();
-    let geneLeft = Math.floor((lastDay - now)/86400000);
-    //Combine String
-    let str = `Today's Food: ${geneFood}\nDays Left: ${geneLeft}`
-
-    bot.channels.find("id", "504311164851978243").send(str); //475990509505085442
-
-}
-
-function getFood(){
-
+function sendText() {
     let arrayFood = [];
+    let chosen = "";
 
     Foods.find({}, (err, f) => {
         if (err) return console.log(err)
 
-        for(let j = 0; j < f.length; j++){        
+        for (let j = 0; j < f.length; j++) {
             let count = f[j].count;
-            for(let i = 0; i < count; i++){
+            for (let i = 0; i < count; i++) {
                 arrayFood.push(f[j].food)
-            }  
-        }  
+            }
+        }
+        //Generate Food
+        let geneFood = arrayFood[Math.floor(Math.random() * arrayFood.length)];
+        //Generate Days Left
+        let now = new Date();
+        let geneLeft = Math.floor((lastDay - now) / 86400000);
+        //Combine String
+        let str = `Today's Food: ${geneFood}\nDays Left: ${geneLeft}`
+
+        bot.channels.find("id", "504311164851978243").send(str); //475990509505085442
     })
 
-    let chosen = arrayFood[Math.floor(Math.random()*arrayFood.length)];
-    return chosen
 
 }
-
-
 
