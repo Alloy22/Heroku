@@ -27,6 +27,7 @@ module.exports.run = async (bot, message, args) => {
                     Foods.find({}, (err, f) => {
                         if (err) return console.log(err)
                 
+                        var str = "Shitty List for now\n";
                         for (let j = 0; j < f.length; j++) {
                             let count = f[j].count;
                             str += `${f[j].food}: ${count}\n`
