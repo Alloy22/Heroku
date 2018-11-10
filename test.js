@@ -1,6 +1,10 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 
+const mongoose = require("mongoose");
+mongoose.connect(process.env.mongooseConnection);
+const Foods = require("../models/food.js");
+
 const prefix = "!";
 const token = process.env.token;
 const bot = new Discord.Client({});
@@ -83,12 +87,16 @@ function getFood(){
 
     let arrayFood = [];
 
-    for(let key in bot.food){
-        var count = bot.food[key].count;
-        for(let i = 0; i < count; i++){
-            arrayFood.push(key)
+    Foods.find({}, (err, f) => {
+        if (err) return console.log(err)
+
+        for(let j = 0; j < f.length; j++){        
+            let count = f[j].count;
+            for(let i = 0; i < count; i++){
+                arrayFood.push(f[j].food)
+            }  
         }  
-    }   
+    })
 
     let chosen = arrayFood[Math.floor(Math.random()*arrayFood.length)];
     return chosen

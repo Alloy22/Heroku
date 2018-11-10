@@ -1,4 +1,7 @@
 const fs = module.require("fs");
+const mongoose = require("mongoose");
+mongoose.connect(process.env.mongooseConnection);
+const Foods = require("../models/food.js");
 
 module.exports.run = async (bot, message, args) => {
     
@@ -10,9 +13,18 @@ module.exports.run = async (bot, message, args) => {
             food  = args[1];
             let count = args[2];
 
-            bot.food[food] = {
+            const foods = new Foods({
+                _id: mongoose.Types.ObjectId(),
+                username: message.author.username,
+                userID: message.author.id,
+                food: food,
                 count: count
-            }
+            })
+
+            foods.save()
+                .then(result => console.log(result))
+                .catch(err => console.log("err:" + err))
+
             break;
         case "delete":
             message.delete();
@@ -20,10 +32,11 @@ module.exports.run = async (bot, message, args) => {
             
             delete bot.food[food];
             break;
+        case "get":
+            message.delete();
+            console.log(getFood())
         }
-        await fs.writeFile("./food.json", JSON.stringify(bot.food, null, 4), err => {
-                if (err) throw err;
-        });
+
         refreshList(bot);
     
         
@@ -44,4 +57,24 @@ function refreshList(bot){
 
     bot.channels.find("id", "504311345202724877").fetchMessage("504312558858272816")
         .then(message => message.edit(str))
+}
+
+function getFood(){
+
+    let arrayFood = [];
+
+    Foods.find({}, (err, f) => {
+        if (err) return console.log(err)
+
+        for(let j = 0; j < f.length; j++){        
+            let count = f[j].count;
+            for(let i = 0; i < count; i++){
+                arrayFood.push(f[j].food)
+            }  
+        }  
+    })
+
+    let chosen = arrayFood[Math.floor(Math.random()*arrayFood.length)];
+    return chosen
+
 }
