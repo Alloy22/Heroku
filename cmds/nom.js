@@ -24,17 +24,7 @@ module.exports.run = async (bot, message, args) => {
             foods.save()
                 .then(result => {
                     console.log(result)
-                    Foods.find({}, (err, f) => {
-                        if (err) return console.log(err)
-                
-                        var str = "Shitty List for now\n";
-                        for (let j = 0; j < f.length; j++) {
-                            let count = f[j].count;
-                            str += `${f[j].food}: ${count}\n`
-                        }
-                        bot.channels.find("id", "504311345202724877").fetchMessage("504312558858272816")
-                            .then(message => message.edit(str))
-                    })
+                    refreshList(bot)                    
                 })
                 .catch(err => console.log("err:" + err))
 
@@ -42,13 +32,15 @@ module.exports.run = async (bot, message, args) => {
             break;
         case "delete":
             message.delete();
-            food = args[1];
-
-            delete bot.food[food];
+            Foods.deleteOne({ name: args[0] }, (err) => {
+            if (err) console.log(err)
+            })   
+            .then(() => {
+                refreshList(bot)
+            })
             break;
     }
 
-    refreshList(bot);
 
 
 
@@ -60,13 +52,16 @@ module.exports.help = {
 
 function refreshList(bot) {
 
-    var str = "Shitty List for now\n";
+    Foods.find({}, (err, f) => {
+        if (err) return console.log(err)
 
-    for (let key in bot.food) {
-        str += `${key}: ${bot.food[key].count}\n`
-    }
+        var str = "Shitty List for now\n";
+        for (let j = 0; j < f.length; j++) {
+            let count = f[j].count;
+            str += `${f[j].food}: ${count}\n`
+        }
+        bot.channels.find("id", "504311345202724877").fetchMessage("504312558858272816")
+            .then(message => message.edit(str))
+    })
 
-    bot.channels.find("id", "504311345202724877").fetchMessage("504312558858272816")
-        .then(message => message.edit(str))
 }
-
