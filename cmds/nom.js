@@ -32,7 +32,7 @@ module.exports.run = async (bot, message, args) => {
             break;
         case "delete":
             message.delete();
-            Foods.deleteOne({ name: args[0] }, (err) => {
+            Foods.deleteOne({ name: args[1] }, (err) => {
             if (err) console.log(err)
             })   
             .then(() => {
